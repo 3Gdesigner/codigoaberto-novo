@@ -73,7 +73,7 @@ class Users extends Admin
     {
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["first_name"], $data["last_name"], $data["email"], $data["telephone"], $data["genre"], $data["level"], $data["status"], $data["password"]];
             if (in_array("", $form)) {
@@ -111,9 +111,9 @@ class Users extends Admin
                 return;
             }
 
-            if($data["send_email"] == 1){
+            if ($data["send_email"] == 1) {
 
-                $password =$data["password"];
+                $password = $data["password"];
 
                 $link = url('admin');
                 $button = "ACESSAR CONTA";
@@ -172,7 +172,7 @@ class Users extends Admin
 
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $user = (new User())->findById("{$data["user_id"]}");
 
@@ -277,7 +277,7 @@ class Users extends Admin
                 return;
             }
 
-            if (!is_passwd($data["password"])){
+            if (!is_passwd($data["password"])) {
                 echo Message::ajaxResponse("message", [
                     "type" => "alert",
                     "message" => "<i class='icon fas fa-exclamation-triangle'></i> Oops! A senha deve ter entre " . CONF_PASSWD['MIN'] . " e " . CONF_PASSWD['MAX'] . " caracteres!"
@@ -335,7 +335,7 @@ class Users extends Admin
             }
 
             $addr = (new Address())->find("user_id = :id", "id={$data["user_id"]}")->fetch();
-            if(!$addr){
+            if (!$addr) {
                 $addr = new Address();
                 $addr->user_id = $data['user_id'];
                 $addr->created_at = date("Y-d-m H:i:s");
@@ -376,7 +376,7 @@ class Users extends Admin
             "head" => $head,
             "csrf" => csrf_input(),
             "user" => $user,
-            "blog" => (!empty($user)? (object)["posts" => (new Blog())->find("author=:user","user={$user->id}")->count()] : "")
+            "blog" => (!empty($user) ? (object)["posts" => (new Blog())->find("author=:user", "user={$user->id}")->count()] : "")
         ]);
     }
 

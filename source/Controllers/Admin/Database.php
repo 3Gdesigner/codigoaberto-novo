@@ -2,7 +2,6 @@
 
 namespace Source\Controllers\Admin;
 
-use Source\Support\Message;
 
 /**
  * Class Database
@@ -37,7 +36,6 @@ class Database extends Admin
 
         flash("success", "Backup <b>" . DATA_LAYER_CONFIG['dbname'] . ".sql.gz</b> foi deletado com sucesso da raiz do projeto");
         redirect("admin/database/home");
-
     }
 
     /**
@@ -54,6 +52,5 @@ class Database extends Admin
 
         flash("success", "Backup <b>" . DATA_LAYER_CONFIG['dbname'] . ".sql.gz</b> gerado com sucesso");
         redirect("admin/database/home");
-
     }
 }

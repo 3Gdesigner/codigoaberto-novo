@@ -33,7 +33,7 @@ class Login extends Controller
     {
         //login
         if (!empty($data["action"]) && $data["action"] == "login") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $login = [$data["email"], $data["password"]];
             if (in_array("", $login)) {
@@ -101,7 +101,7 @@ class Login extends Controller
                 return;
             }
 
-            if (passwd_rehash($user->password)):
+            if (passwd_rehash($user->password)) :
                 $user->password = $data["password"];
                 $user->updated_at = date("Y-m-d H:i:s");
                 $user->save();
@@ -142,7 +142,7 @@ class Login extends Controller
                     return;
                 }
             }
-            
+
 
             /** SAVE COOKIE **/
             $Remember = (isset($data['remember']) ? 1 : null);
@@ -211,7 +211,7 @@ class Login extends Controller
     {
         //forget
         if (!empty($data["action"]) && $data["action"] == "forget") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             $login = [$data["email"]];
             if (in_array("", $login)) {
@@ -309,7 +309,7 @@ class Login extends Controller
 
         //reset
         if (!empty($data["action"]) && $data["action"] == "reset") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             if (in_array("", $data)) {
                 echo Message::ajaxResponse("message", [
                     "type" => "error",
@@ -326,7 +326,7 @@ class Login extends Controller
                 return;
             }
 
-            if (!is_passwd($data["password"])):
+            if (!is_passwd($data["password"])) :
                 echo Message::ajaxResponse("message", [
                     "type" => "alert",
                     "message" => "<i class='icon fas fa-exclamation-triangle'></i> Oops! Sua senha deve ter entre " . CONF_PASSWD['MIN'] . " e " . CONF_PASSWD['MAX'] . " caracteres!"

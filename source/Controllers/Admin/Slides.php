@@ -20,7 +20,7 @@ class Slides extends Admin
      */
     public function home(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //search redirect
         if (!empty($data["s"])) {
@@ -73,7 +73,7 @@ class Slides extends Admin
     {
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $cover = (!empty($_FILES["cover"]) ? $_FILES["cover"] : null);
 
@@ -151,7 +151,7 @@ class Slides extends Admin
 
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["title"], $data["subtitle"], $data["status"]];
             if (in_array("", $form)) {

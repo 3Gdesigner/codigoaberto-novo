@@ -20,7 +20,7 @@ class Testimonys extends Admin
      */
     public function home(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //search redirect
         if (!empty($data["s"])) {
@@ -74,7 +74,7 @@ class Testimonys extends Admin
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
             $content = $data["content"];
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["name"], $data["status"], $data["author"]];
             if (in_array("", $form)) {
@@ -142,7 +142,7 @@ class Testimonys extends Admin
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
             $content = $data["content"];
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["name"], $data["status"], $data["author"]];
             if (in_array("", $form)) {

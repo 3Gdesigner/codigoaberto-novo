@@ -4,11 +4,11 @@
 if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
     define("DATA_LAYER_CONFIG", [
         "driver" => "mysql",
-        "host" => "localhost",
+        "host" => "mariadb",
         "port" => "3306",
         "dbname" => "codigoaberto",
         "username" => "root",
-        "passwd" => "",
+        "passwd" => "4144",
         "options" => [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -19,11 +19,11 @@ if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
 } else {
     define("DATA_LAYER_CONFIG", [
         "driver" => "mysql",
-        "host" => "localhost",
+        "host" => "mariadb",
         "port" => "3306",
-        "dbname" => "banco_online",
-        "username" => "username_online",
-        "passwd" => "passowrd_online",
+        "dbname" => "codigoaberto",
+        "username" => "root",
+        "passwd" => "4144",
         "options" => [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -34,7 +34,7 @@ if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
 }
 
 // COOKIE POLICY
-define("COOKIEPOLICY", filter_input(INPUT_COOKIE, "cookiePolicy", FILTER_SANITIZE_STRIPPED));
+define("COOKIEPOLICY", filter_input(INPUT_COOKIE, "cookiePolicy", FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
 // VIEW
 define("CONF_VIEW", [
@@ -46,8 +46,8 @@ define("CONF_VIEW", [
 
 // PROJECT URLs
 define("CONF_URl", [
-    "TEST" => "https://www.localhost/codigoaberto",
-    "BASE" => "https://www.seudominio.com.br"
+    "TEST" => "http://localhost:90",
+    "BASE" => "http://localhost:90"
 ]);
 
 // PASSWORD

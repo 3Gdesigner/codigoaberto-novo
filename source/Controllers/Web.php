@@ -76,7 +76,7 @@ class Web extends Controller
      */
     public function blog(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $posts = (new Blog())->find("status = :status AND post_at <= NOW()", "status=1")->order("id DESC");
 
@@ -104,7 +104,7 @@ class Web extends Controller
      */
     public function blogSearch(array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //search redirect
         if (!empty($data["s"])) {
@@ -155,7 +155,7 @@ class Web extends Controller
      */
     public function blogPost(array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $post = (new Blog())->find("status = :status AND uri = :url AND post_at <= NOW() ", "status=1&url={$data['uri']}")->fetch();
         if (!$post) {
@@ -186,7 +186,7 @@ class Web extends Controller
      */
     public function tag(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $search = null;
 
@@ -227,7 +227,7 @@ class Web extends Controller
     {
         //send contact
         if (!empty($data["action"]) && $data["action"] == "contact") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["name"], $data["email"], $data["subject"], $data["message"]];
             if (in_array("", $form)) {
@@ -297,7 +297,7 @@ class Web extends Controller
 
     public function cookiePolicy(array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         setcookie("cookiePolicy", $data["cookie"], time() + (12 * 43200), "/");
 

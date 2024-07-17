@@ -20,7 +20,7 @@ class Blog extends Admin
      */
     public function home(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //search redirect
         if (!empty($data["s"])) {
@@ -75,7 +75,7 @@ class Blog extends Admin
             $content = $data["content"];
         }
 
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
@@ -243,7 +243,7 @@ class Blog extends Admin
                         ini_set('max_input_vars', 3000);
                         set_time_limit(0);
 
-                        $uploaded = $upload->upload($file, pathinfo($data["post_id"] . "-" .$file["name"], PATHINFO_FILENAME), 730);
+                        $uploaded = $upload->upload($file, pathinfo($data["post_id"] . "-" . $file["name"], PATHINFO_FILENAME), 730);
                         $images = substr($uploaded, strrpos($uploaded, 'storage/') + 8);
 
                         $gallery = new BlogGallery();
@@ -279,7 +279,7 @@ class Blog extends Admin
             "head" => $head,
             "csrf" => csrf_input(),
             "post" => $post,
-            "gallery" => (!empty($data["post_id"]) ? (new BlogGallery())->find("post_id=:id","id={$data["post_id"]}")->fetch(true) : null),
+            "gallery" => (!empty($data["post_id"]) ? (new BlogGallery())->find("post_id=:id", "id={$data["post_id"]}")->fetch(true) : null),
             "authors" => (new User())->find("level >= :level", "level=6")->fetch(true)
         ]);
     }

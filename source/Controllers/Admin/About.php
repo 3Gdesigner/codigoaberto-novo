@@ -18,7 +18,7 @@ class About extends Admin
      */
     public function home(?array $data): void
     {
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
         //search redirect
         if (!empty($data["s"])) {
@@ -66,13 +66,13 @@ class About extends Admin
      * @param array $data
      */
     public function about(?array $data): void
-    { 
+    {
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
 
             $content = $data["content"];
 
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             if (in_array("", $data)) {
                 echo Message::ajaxResponse("message", [
@@ -108,7 +108,7 @@ class About extends Admin
         if (!empty($data["action"]) && $data["action"] == "update") {
 
             $content = $data["content"];
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = filter_var_array($data, FILTER_SANITIZE_SPECIAL_CHARS);
 
             $form = [$data["title"], $data["status"]];
             if (in_array("", $form)) {
@@ -153,7 +153,7 @@ class About extends Admin
             $aboutId = filter_var($data["about_id"], FILTER_VALIDATE_INT);
             $about = (new \Source\Models\About())->findById("{$aboutId}");
         }
-        
+
         echo $this->view->render("widgets/about/about", [
             "app" => "about/about",
             "head" => $head,
